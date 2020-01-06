@@ -34,9 +34,9 @@ public class Renderer {
 	private Map<TexturedModel, List<Entity>> entities = new HashMap<TexturedModel, List<Entity>>();	
 	
 	public Renderer(Camera camera){
-		GL11.glFrontFace(GL11.GL_CCW);
+		/*GL11.glFrontFace(GL11.GL_CCW);
 		GL11.glEnable(GL11.GL_CULL_FACE);
-		GL11.glCullFace(GL11.GL_BACK);
+		GL11.glCullFace(GL11.GL_BACK);*/
 		createProjectionMatrix();
 		renderer = new EntityRenderer(shader, projectionMatrix);
 		backgroundColor = new Vector3f(1, 1, 1);
@@ -49,6 +49,7 @@ public class Renderer {
 		shader.start();
 		shader.loadLight(sun);
 		shader.loadViewMatrix(camera);
+		
 		renderer.render(entities);
 		shader.stop();
 		

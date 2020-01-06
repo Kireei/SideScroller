@@ -1,5 +1,16 @@
 #version 400 core
 
-void main(void){
+in vec3 position;
+in vec2 texCoords;
 
+out vec2 pass_texCoords;
+
+uniform mat4 tMat;
+uniform mat4 pMat;
+uniform mat4 vMat;
+
+void main(void){
+	vec4 worldPosition = tMat * vec4(position, 1.0);
+	gl_Position = pMat * vMat * worldPosition;
+	pass_texCoords = texCoords;
 }
