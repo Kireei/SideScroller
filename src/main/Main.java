@@ -5,8 +5,8 @@ public class Main {
 		//Helst en tråd för att ladda in grejer
 		
 		//En tråd för rendering
-				Rendering rendering = new Rendering();
-				rendering.start();
+		Rendering rendering = new Rendering();
+		rendering.start();
 		
 		//En tråd för logiken
 		Logic logic = new Logic();

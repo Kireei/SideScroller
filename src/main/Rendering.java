@@ -31,12 +31,13 @@ public class Rendering extends Thread{
 		Renderer renderer = new Renderer(camera);
 		RawModel dragon = OBJLoader.loadObjModel("dragon", Rendering.loader);
 		TexturedModel Dragon = new TexturedModel(dragon, new ModelTexture(loader.loadTexture("chimp")));
-		Entity newdragon = new Entity(Dragon, new Vector3f(0,0,-10),0,0,0, new Vector3f(1,1,1));
+		Entity newdragon = new Entity(Dragon, new Vector3f(0,-3,-15),0,0,0, new Vector3f(1,1,1));
 		
 		
 		while (!Display.isCloseRequested() || !Settings.running) {
 			if(Display.isCloseRequested()) Settings.running = false;
 			double start = System.nanoTime();
+			newdragon.increaseRotation(0, (float) (5*Math.PI/180), 0);
 			renderer.processEntity(newdragon);
 			renderer.render(light, camera);
 

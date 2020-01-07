@@ -2,15 +2,25 @@
 
 in vec3 position;
 in vec2 texCoords;
+in vec3 normal;
 
 out vec2 pass_texCoords;
+out vec3 surfaceNormal;
+out vec3 toLightVector;
+out vec3 toCameraVector;
+
 
 uniform mat4 tMat;
 uniform mat4 pMat;
 uniform mat4 vMat;
+uniform vec3 lightPosition;
 
 void main(void){
 	vec4 worldPosition = tMat * vec4(position, 1.0);
 	gl_Position = pMat * vMat * worldPosition;
 	pass_texCoords = texCoords;
+	
+	surfaceNormal = (tMat * vec4(normal, 0.0)).xyz;
+	toLightVector = lightPosition - worldPosition.xyz;
+	toCameraVector = (inverse(vMat) * vec4(0.0, 0.0, 0.0, 1.0)).xyz - worldPosition.xyz;
 }
