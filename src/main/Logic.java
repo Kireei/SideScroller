@@ -1,8 +1,5 @@
 package main;
 
-import models.OBJLoader;
-import models.RawModel;
-
 public class Logic extends Thread{
 
 	public Logic() {
@@ -14,15 +11,21 @@ public class Logic extends Thread{
 		double deltaTime = 0;
 		while (Settings.running) {
 			double currentTime = System.nanoTime();
-			deltaTime = currentTime - startTime;
+			deltaTime = (currentTime - startTime)/1000000;
 			if(Rendering.loader == null) System.err.println("Loader is null");
+			if(Rendering.newdragon == null) System.err.println("Dragon is null");
 			
-			try {
-				Thread.sleep(100);
+			if(Settings.initialization) {
+				Rendering.newdragon.increaseRotation(0, (float) (deltaTime*5*Math.PI/180), 0);
+			}
+		
+			/*try {
+				System.out.println(deltaTime);
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
 			
 			startTime = currentTime;
 		}

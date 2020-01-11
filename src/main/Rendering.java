@@ -17,6 +17,10 @@ import rendering.display.Renderer;
 
 public class Rendering extends Thread{
 	public static Loader loader;
+	public static Entity newdragon;
+	private static Renderer renderer;
+	private static Light light;
+	private static Camera camera;
 	
 	
 	public Rendering() {
@@ -25,19 +29,13 @@ public class Rendering extends Thread{
 	}
 	double firstFrameTime = 0;
 	public void run() {
-		DisplayManager.createDisplay();
-		Camera camera = new Camera();
-		Light light = new Light(new Vector3f(0,0,0), new Vector3f(1,1,1));
-		Renderer renderer = new Renderer(camera);
-		RawModel dragon = OBJLoader.loadObjModel("dragon", Rendering.loader);
-		TexturedModel Dragon = new TexturedModel(dragon, new ModelTexture(loader.loadTexture("chimp")));
-		Entity newdragon = new Entity(Dragon, new Vector3f(0,-3,-15),0,0,0, new Vector3f(1,1,1));
 		
+		initialize();
 		
 		while (!Display.isCloseRequested() || !Settings.running) {
 			if(Display.isCloseRequested()) Settings.running = false;
 			double start = System.nanoTime();
-			newdragon.increaseRotation(0, (float) (5*Math.PI/180), 0);
+			
 			renderer.processEntity(newdragon);
 			renderer.render(light, camera);
 
@@ -58,5 +56,16 @@ public class Rendering extends Thread{
 		
 		DisplayManager.closeDisplay();
 		Settings.running = false;
+	}
+	
+	public void initialize() {
+		DisplayManager.createDisplay();
+		camera = new Camera();
+		light = new Light(new Vector3f(0,0,0), new Vector3f(1,1,1));
+		renderer = new Renderer(camera);
+		RawModel dragon = OBJLoader.loadObjModel("dragon", Rendering.loader);
+		TexturedModel Dragon = new TexturedModel(dragon, new ModelTexture(loader.loadTexture("chimp")));
+		newdragon = new Entity(Dragon, new Vector3f(0,-3,-15),0,0,0, new Vector3f(1,1,1));
+		Settings.initialization = true;
 	}
 }

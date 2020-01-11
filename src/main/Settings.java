@@ -11,6 +11,7 @@ public class Settings {
 	
 	// Rendering Settings
 	public static boolean running = false;
+	public static boolean initialization = false;
 	
 	// Logic Settings
 	public static final int PHYSICS_FREQ = 60;
