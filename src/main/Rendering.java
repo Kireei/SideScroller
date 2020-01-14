@@ -20,7 +20,7 @@ public class Rendering extends Thread{
 	public static Entity newdragon;
 	private static Renderer renderer;
 	private static Light light;
-	private static Camera camera;
+	public static Camera camera;
 	
 	
 	public Rendering() {

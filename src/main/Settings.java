@@ -1,5 +1,11 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import gamestate.GameState;
+import gamestate.GameStates;
+
 public class Settings {
 	
 	// General Settings
@@ -8,6 +14,9 @@ public class Settings {
 	public static final int FPS_CAP = 100000;
 	public static final String TITLE = "A Side Scrolling game";
 	
+	public static GameStates gameState = GameStates.NORMAL;
+	public static GameState currentGameState;
+	public static List<GameState> gameStates = new ArrayList<GameState>();
 	
 	// Rendering Settings
 	public static boolean running = false;

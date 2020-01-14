@@ -11,10 +11,22 @@ public class Camera {
 	private float yaw;
 	private float roll;
 	
-	private float speed = 0.2f;
+	private float speed = 0.05f;
 	
 	public Camera(){
 		
+	}
+	public void moveForward(double deltaTime){
+		position.z -= speed * deltaTime;
+	}
+	public void moveBackward(double deltaTime){
+		position.z += speed * deltaTime;
+	}
+	public void moveLeft(double deltaTime){
+		position.x -= speed * deltaTime;
+	}
+	public void moveRight(double deltaTime){
+		position.x += speed * deltaTime;
 	}
 	
 	public void move(){
