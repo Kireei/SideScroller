@@ -1,6 +1,5 @@
 package main;
 
-import gamestate.GameState;
 import gamestate.GameStateNormal;
 
 public class Logic extends Thread{
@@ -9,7 +8,12 @@ public class Logic extends Thread{
 		Settings.running = true;
 	}
 	public void run() {
-		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		double startTime = System.nanoTime();
 		double deltaTime = 0;
 		Settings.currentGameState = new GameStateNormal();

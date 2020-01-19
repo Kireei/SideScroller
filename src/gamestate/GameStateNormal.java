@@ -1,12 +1,15 @@
 package gamestate;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 
 import main.Rendering;
+import main.Settings;
 import models.Camera;
+import rendering.display.DisplayManager;
 
 public class GameStateNormal extends GameState{
-	private static Camera camera;
+	private Camera camera;
 
 	public void inputs(double deltaTime) {
 		// Returns a single key however long pressed
@@ -15,6 +18,9 @@ public class GameStateNormal extends GameState{
 				switch(Keyboard.getEventKey()) {
 				case Keyboard.KEY_W:
 					//Rendering.camera.moveForward();
+					break;
+				case Keyboard.KEY_ESCAPE:
+					System.exit(0);
 					break;
 				}
 			}
@@ -34,6 +40,11 @@ public class GameStateNormal extends GameState{
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
 			Rendering.camera.moveRight(deltaTime);
 		}
+		//Mouse.setCursorPosition((int)(Settings.SCREEN_WIDTH*0.5), (int)(Settings.SCREEN_HEIGHT*0.5));
+		Rendering.camera.addPitch((float)-Mouse.getDY()/16);
+		Rendering.camera.addYaw((float)Mouse.getDX()/16);
+		
+		
 		
 		
 		
