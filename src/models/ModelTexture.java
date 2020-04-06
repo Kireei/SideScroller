@@ -4,7 +4,7 @@ public class ModelTexture {
 	private int textureID;
 	
 	private float shineDamper = 0.5f;
-	private float reflectivity = 1f;
+	private float reflectivity = 0.5f;
 	
 	public ModelTexture(int id){
 		this.textureID = id;

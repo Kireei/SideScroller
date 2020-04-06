@@ -1,6 +1,7 @@
 package main;
 
 import gamestate.GameStateNormal;
+import ui.UIMaster;
 
 public class Logic extends Thread{
 
@@ -18,12 +19,14 @@ public class Logic extends Thread{
 		double deltaTime = 0;
 		Settings.currentGameState = new GameStateNormal();
 		Settings.currentGameState.setCamera(Rendering.camera);
+		
+		
 		while (Settings.running) {
 			double currentTime = System.nanoTime();
 			deltaTime = (currentTime - startTime)/1000000;
 			if(Rendering.loader == null) System.err.println("Loader is null");
 			if(Rendering.newdragon == null) System.err.println("Dragon is null");
-			
+
 			if(Settings.initialization) {
 				Rendering.newdragon.increaseRotation(0, (float) (deltaTime*5*Math.PI/180), 0);
 			}

@@ -40,7 +40,7 @@ public class GameStateNormal extends GameState{
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
 			Rendering.camera.moveRight(deltaTime);
 		}
-<<<<<<< HEAD
+		
 		if(Keyboard.isKeyDown(Keyboard.KEY_UP)){
 			Rendering.camera.rotateUp(deltaTime);
 		}
@@ -53,12 +53,10 @@ public class GameStateNormal extends GameState{
 		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)){
 			Rendering.camera.rotateRight(deltaTime);
 		}
-=======
 		//Mouse.setCursorPosition((int)(Settings.SCREEN_WIDTH*0.5), (int)(Settings.SCREEN_HEIGHT*0.5));
-		Rendering.camera.addPitch((float)-Mouse.getDY()/16);
-		Rendering.camera.addYaw((float)Mouse.getDX()/16);
-		
->>>>>>> branch 'master' of https://github.com/Kireei/SideScroller.git
+		//Rendering.camera.addPitch((float)-Mouse.getDY()/16);
+		//Rendering.camera.addYaw((float)Mouse.getDX()/16);
+
 		
 		
 		

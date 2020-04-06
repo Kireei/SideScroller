@@ -11,11 +11,14 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
+import main.Rendering;
 import models.Camera;
 import models.Entity;
 import models.Light;
 import models.TexturedModel;
 import shaders.StaticShader;
+import shaders.UIShader;
+import ui.UIRenderer;
 
 public class Renderer {
 	
@@ -29,6 +32,8 @@ public class Renderer {
 	
 	private StaticShader shader = new StaticShader();
 	private EntityRenderer renderer;
+	private UIShader uishader = new UIShader();
+	private UIRenderer uirenderer;
 	
 	
 	private Map<TexturedModel, List<Entity>> entities = new HashMap<TexturedModel, List<Entity>>();	
@@ -39,7 +44,8 @@ public class Renderer {
 		GL11.glCullFace(GL11.GL_BACK);
 		createProjectionMatrix();
 		renderer = new EntityRenderer(shader, projectionMatrix);
-		backgroundColor = new Vector3f(1, 1, 1);
+		uirenderer = new UIRenderer(uishader, projectionMatrix);
+		backgroundColor = new Vector3f(0, 0, 1);
 
 	}
 	
@@ -52,6 +58,9 @@ public class Renderer {
 		
 		renderer.render(entities);
 		shader.stop();
+		uishader.start();
+		uirenderer.render(Rendering.uies);
+		uishader.stop();
 		
 		entities.clear();
 		
