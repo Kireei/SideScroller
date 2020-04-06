@@ -28,7 +28,7 @@ public class Rendering extends Thread{
 		loader = new Loader();
 	}
 	double firstFrameTime = 0;
-	public void run() {
+	public synchronized void run() {
 		
 		initialize();
 		
