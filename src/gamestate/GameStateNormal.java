@@ -34,6 +34,19 @@ public class GameStateNormal extends GameState{
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
 			Rendering.camera.moveRight(deltaTime);
 		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_UP)){
+			Rendering.camera.rotateUp(deltaTime);
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)){
+			Rendering.camera.rotateDown(deltaTime);
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)){
+			Rendering.camera.rotateLeft(deltaTime);
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)){
+			Rendering.camera.rotateRight(deltaTime);
+		}
+		
 		
 		
 		

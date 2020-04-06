@@ -11,6 +11,7 @@ public class Settings {
 	// General Settings
 	public static final int SCREEN_WIDTH = 1600;
 	public static final int SCREEN_HEIGHT = 900;
+	public static final float SCREEN_RATIO = SCREEN_HEIGHT / SCREEN_WIDTH;
 	public static final int FPS_CAP = 100000;
 	public static final String TITLE = "A Side Scrolling game";
 	

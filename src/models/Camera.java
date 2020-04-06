@@ -4,6 +4,8 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector3f;
 
+import main.Settings;
+
 public class Camera {
 	
 	private Vector3f position = new Vector3f(0, 1, 0);
@@ -12,22 +14,40 @@ public class Camera {
 	private float roll;
 	
 	private float speed = 0.05f;
+	private float rotationSpeed = 0.1f;
 	
 	public Camera(){
 		
 	}
 	public void moveForward(double deltaTime){
-		position.z -= speed * deltaTime;
+		position.z -= Math.cos(Math.toRadians(yaw)) * deltaTime * speed;
+		position.x += Math.sin(Math.toRadians(yaw)) * deltaTime * speed;
 	}
 	public void moveBackward(double deltaTime){
-		position.z += speed * deltaTime;
+		position.z += Math.cos(Math.toRadians(yaw)) * deltaTime * speed;
+		position.x -= Math.sin(Math.toRadians(yaw)) * deltaTime * speed;
 	}
 	public void moveLeft(double deltaTime){
-		position.x -= speed * deltaTime;
+		position.z -= Math.cos(Math.toRadians(yaw - 90)) * deltaTime * speed;
+		position.x += Math.sin(Math.toRadians(yaw - 90)) * deltaTime * speed;
 	}
 	public void moveRight(double deltaTime){
-		position.x += speed * deltaTime;
+		position.z -= Math.cos(Math.toRadians(yaw + 90)) * deltaTime * speed;
+		position.x += Math.sin(Math.toRadians(yaw + 90)) * deltaTime * speed;
 	}
+	public void rotateUp(double deltaTime) {
+		pitch -= rotationSpeed * deltaTime;
+	}
+	public void rotateDown(double deltaTime) {
+		pitch += rotationSpeed * deltaTime;
+	}
+	public void rotateLeft(double deltaTime) {
+		yaw -= rotationSpeed * deltaTime;
+	}
+	public void rotateRight(double deltaTime) {
+		yaw += rotationSpeed * deltaTime;
+	}
+	
 	
 	public void move(){
 		//if(UIMaster.uiState == UIState.NORMAL) {
