@@ -16,15 +16,15 @@ public class TextMaster {
 	public static Map<FontType, List<GUIText>> texts = new HashMap<FontType, List<GUIText>>();
 	private static FontRenderer renderer;
 	
-	public static void init(){
+	public void init(){
 		renderer = new FontRenderer();
 	}
 	
-	public static void render(){
+	public void render(){
 		renderer.render(texts);
 	}
 	
-	public static void loadText(GUIText text){
+	public void loadText(GUIText text){
 		FontType font = text.getFont();
 		TextMeshData data = font.loadText(text);
 		int vao = loader.loadToVAO(data.getVertexPositions(), data.getTextureCoords());
@@ -37,7 +37,7 @@ public class TextMaster {
 		textBatch.add(text);
 	}
 	
-	public static void removeText(GUIText text){
+	public void removeText(GUIText text){
 		List<GUIText> textBatch = texts.get(text.getFont());
 		textBatch.remove(text);
 		if(textBatch.isEmpty()){
@@ -45,7 +45,7 @@ public class TextMaster {
 		}
 	}
 	
-	public static void cleanUp(){
+	public void cleanUp(){
 		renderer.cleanUp();
 	}
 	

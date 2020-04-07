@@ -20,6 +20,7 @@ import ui.UIElement;
 import ui.UIHandler;
 import ui.UIMaster;
 import windows.Controller;
+import windows.MaterialProperties;
 
 public class Rendering extends Thread{
 	public static Loader loader;
@@ -27,6 +28,11 @@ public class Rendering extends Thread{
 	private static Renderer renderer;
 	private static Light light;
 	public static Camera camera;
+	
+	public static UIMaster uimaster;
+	public static UIHandler uihandler;
+	public static TextMaster textmaster;
+	
 	public static List<UIElement> uies = new ArrayList<UIElement>();
 	
 	public Rendering() {
@@ -44,13 +50,14 @@ public class Rendering extends Thread{
 			
 			renderer.processEntity(newdragon);
 			renderer.render(light, camera);
-			UIMaster.updateUI();
+			uimaster.updateUI();
+			textmaster.render();
 			DisplayManager.updateDisplay();
 			
 			double done = System.nanoTime();
 			if(firstFrameTime / Math.pow(10, 9) <= 1) {
 				firstFrameTime += done - start;	
-			}else{
+			} else {
 				firstFrameTime = 0;
 				System.out.println(Math.round(1 / ((done - start) / Math.pow(10, 9))));
 			}
@@ -72,10 +79,13 @@ public class Rendering extends Thread{
 		RawModel dragon = OBJLoader.loadObjModel("dragon", Rendering.loader);
 		TexturedModel Dragon = new TexturedModel(dragon, new ModelTexture(loader.loadTexture("chimp")));
 		newdragon = new Entity(Dragon, new Vector3f(0,-3,-15),0,0,0, new Vector3f(1,1,1));
-		TextMaster.init();
-		UIHandler.init();
-		UIMaster.init();
-		UIHandler.openWindow(Controller.createWindow());
+		uihandler = new UIHandler();
+		uimaster = new UIMaster();
+		textmaster = new TextMaster();
+		textmaster.init();
+		uihandler.init();
+		uimaster.init();
+		//UIHandler.openWindow(MaterialProperties.createWindow());
 		Settings.initialization = true;
 	}
 }

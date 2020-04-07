@@ -4,13 +4,14 @@ import java.util.List;
 
 import org.lwjgl.util.vector.Vector2f;
 
+import main.Rendering;
 import ui.UIElement;
 import ui.UIHandler;
 
 public class Controller {
 	
 	public static List<UIElement> createWindow() {
-		List<UIElement> window = UIHandler.createWindow(new Vector2f(5,15), new Vector2f(0,0));
+		List<UIElement> window = Rendering.uihandler.createWindow(new Vector2f(5,15), new Vector2f(0,0));
 		UIElement topEdge = window.get(1);
 		topEdge.createTitle("Controller", 1, new Vector2f(0,0));
 		//topEdge.getTitle().setColour(0, 0, 0);
@@ -61,8 +62,8 @@ public class Controller {
 		
 		UIElement.addTextBox(topEdge.createTextBox(new Vector2f(-0.035f,0.2f), new Vector2f(3,3), new Vector2f(2f,0.5f), "testBox"), window);
 		
-		UIHandler.openWindow(window);
-		UIHandler.closeWindow(window);
+		Rendering.uihandler.openWindow(window);
+		Rendering.uihandler.closeWindow(window);
 		return window;
 
 	}

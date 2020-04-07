@@ -26,7 +26,7 @@ public class RadioButtonFunctions {
 			break;*/
 		default:
 			System.out.println("Function for given RadioButton-ID not found");
-			UIHandler.openWindow(UIMaster.colorPicker);
+			//UIHandler.openWindow(UIMaster.colorPicker);
 		}
 	}
 	public static void unFunction(String id) {
@@ -44,7 +44,7 @@ public class RadioButtonFunctions {
 			break;*/
 		default:
 			System.out.println("Function for given RadioButton-ID not found");
-			UIHandler.closeWindow(UIMaster.colorPicker);
+			//UIHandler.closeWindow(UIMaster.colorPicker);
 		}
 	}
 }

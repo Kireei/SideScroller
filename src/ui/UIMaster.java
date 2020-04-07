@@ -12,12 +12,12 @@ import fontRendering.TextMaster;
 import main.Rendering;
 import windows.ColorPicker;
 import windows.Controller;
+import windows.MaterialProperties;
 
 public class UIMaster {
 	public static List<UIElement> uies = Rendering.uies;
 	
-	public static List<UIElement> controller;
-	public static List<UIElement> colorPicker;
+	public List<UIElement> mProp;
 	
 	public static UIState uiState = UIState.NORMAL;
 	public static String testText = new String();
@@ -26,32 +26,33 @@ public class UIMaster {
 	
 	public static UIElement activeText;
 	
-	public static void init() {
-		controller = Controller.createWindow();
-		colorPicker = ColorPicker.createWindow();
+	public void init() {
+		mProp = MaterialProperties.createWindow();
+		
 		
 	}
 	
-	public static void updateUI() {
+	public void updateUI() {
 		if(uiState == UIState.NORMAL) {
+			
 			while(Keyboard.next()) {
 				if(Keyboard.getEventKeyState()) {
 					if(Keyboard.getEventKey() == Keyboard.KEY_G) {
 						
 					}
 					if(Keyboard.getEventKey() == Keyboard.KEY_E) {
-						uiState = UIState.TEXT_INPUT;
+						System.out.println("TEST");
 						
 					}
 				} else {
 					if(Keyboard.getEventKey() == Keyboard.KEY_G) {
-						if(!controller.get(1).isActive()) {
-							UIHandler.openWindow(controller);
+						System.out.println("TEST");						if(!mProp.get(1).isActive()) {
+							Rendering.uihandler.openWindow(mProp);
 							return;
 							}
-						if(controller.get(1).isActive()) {
-							UIHandler.closeWindow(controller);
-							if(colorPicker.get(1).isActive())UIHandler.closeWindow(colorPicker);
+						if(mProp.get(1).isActive()) {
+							Rendering.uihandler.closeWindow(mProp);
+							
 							
 						}
 					}
@@ -94,7 +95,7 @@ public class UIMaster {
 		Vector3f color = new Vector3f(1,1,1);
 		for(GUIText text : texts) {
 			color = text.getColour();
-			TextMaster.removeText(text);
+			Rendering.textmaster.removeText(text);
 		}
 		
 		texts.clear();
@@ -103,13 +104,13 @@ public class UIMaster {
 		
 		
 		for(GUIText text : texts) {
-			TextMaster.loadText(text);
+			Rendering.textmaster.loadText(text);
 		}
 
 	}
-	public static void clearUpdatedText() {
-		for(GUIText text : controller.get(1).getSliders().get(0)[2].getTexts()) {
-			TextMaster.removeText(text);
+	public void clearUpdatedText() {
+		for(GUIText text : mProp.get(1).getSliders().get(0)[2].getTexts()) {
+			Rendering.textmaster.removeText(text);
 		}
 	}
 }

@@ -7,6 +7,8 @@ import main.Rendering;
 import main.Settings;
 import models.Camera;
 import rendering.display.DisplayManager;
+import ui.UIHandler;
+import ui.UIMaster;
 
 public class GameStateNormal extends GameState{
 	private Camera camera;
@@ -16,8 +18,10 @@ public class GameStateNormal extends GameState{
 		while(Keyboard.next()) {
 			if(Keyboard.getEventKeyState()) {
 				switch(Keyboard.getEventKey()) {
-				case Keyboard.KEY_W:
-					//Rendering.camera.moveForward();
+				case Keyboard.KEY_G:
+					Rendering.uihandler.openWindow(Rendering.uimaster.mProp);
+					//if(!Rendering.uimaster.mProp.get(1).isActive())Rendering.uihandler.openWindow(Rendering.uimaster.mProp);
+					//if(Rendering.uimaster.mProp.get(1).isActive())Rendering.uihandler.closeWindow(Rendering.uimaster.mProp);
 					break;
 				case Keyboard.KEY_ESCAPE:
 					System.exit(0);

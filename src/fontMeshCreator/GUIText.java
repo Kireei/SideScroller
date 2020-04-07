@@ -4,6 +4,7 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import fontRendering.TextMaster;
+import main.Rendering;
  
 /**
  * Represents a piece of text in the game.
@@ -37,14 +38,14 @@ public class GUIText {
         this.lineMaxSize = maxLineLength;
         this.centerText = centered;
         this.loadText = loadText;
-        if(this.loadText)TextMaster.loadText(this);
+        if(this.loadText)Rendering.textmaster.loadText(this);
     }
  
     /**
      * Remove the text from the screen.
      */
     public void remove() {
-        TextMaster.removeText(this);
+    	Rendering.textmaster.removeText(this);
     }
  
     /**

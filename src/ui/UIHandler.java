@@ -35,7 +35,7 @@ public class UIHandler {
 	
 	
 	
-	public static void init() {
+	public void init() {
 		//loader = Rendering.loader;
 		rawModel = rawModel();
 		font = new FontType(loader.loadFont("arial"), new File("res/Fonts/arial.fnt"));
@@ -47,7 +47,7 @@ public class UIHandler {
 		slider = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("GUI/Slider")));
 		
 	}
-	private static RawModel rawModel() {
+	private RawModel rawModel() {
 		float aspectRatio = 9f / 16f;
 		float[] positions = {-aspectRatio, 1.0f, 0.0f, -aspectRatio, -1.0f, 0.0f, aspectRatio, -1.0f, 0.0f, aspectRatio, 1.0f, 0.0f};
 		float[] textureCoords = {0, 0, 0, 1, 1, 1, 1, 0};
@@ -58,7 +58,7 @@ public class UIHandler {
 	}
 
 	
-	public static List<UIElement> createWindow(Vector2f scale, Vector2f position) {
+	public List<UIElement> createWindow(Vector2f scale, Vector2f position) {
 		float tileSize = 0.06f;
 		float tileSpaceX = tileSize*18f/16f;
 		float tileSpaceY = tileSize*2;
@@ -87,7 +87,7 @@ public class UIHandler {
 		return window;
 	}
 	
-	public static void openWindow(List<UIElement> window) {
+	public void openWindow(List<UIElement> window) {
 		window.get(1).setActive(true);
 		
 		for(int i = 0; i < window.size(); i++) {
@@ -109,24 +109,24 @@ public class UIHandler {
 			for(UIElement rb: window.get(i).getRadioButtons()) {
 				Rendering.uies.add(rb);
 				for(GUIText text: rb.getTexts()) {
-					TextMaster.loadText(text);
+					Rendering.textmaster.loadText(text);
 				}
 				
 			}
 			for(GUIText text: window.get(i).getTexts()) {
-				TextMaster.loadText(text);
+				Rendering.textmaster.loadText(text);
 			}
 			
 		}
 		UIMaster.activeWindows.add(window);
 	}
 	
-	public static void closeWindow(List<UIElement> window) {
+	public void closeWindow(List<UIElement> window) {
 		for(int i = 0; i < window.size(); i++) {
 			for(UIElement rb: window.get(i).getRadioButtons()) {
 				Rendering.uies.remove(rb);
 				for(GUIText text: rb.getTexts()) {
-					TextMaster.removeText(text);
+					Rendering.textmaster.removeText(text);
 					
 				}
 			}
@@ -138,13 +138,13 @@ public class UIHandler {
 				for(int j = 0; j < 4; j++) {
 					for(GUIText text: slider[j].getTexts()) {
 						
-						TextMaster.removeText(text);
+						Rendering.textmaster.removeText(text);
 					}
 				}
 			}
 			for(GUIText text: window.get(i).getTexts()) {
 				try{
-					TextMaster.removeText(text);
+					Rendering.textmaster.removeText(text);
 				}catch (Exception e){
 					System.err.println(e);
 				}
