@@ -1,7 +1,9 @@
 package ui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
@@ -13,59 +15,37 @@ import main.Rendering;
 import windows.ColorPicker;
 import windows.Controller;
 import windows.MaterialProperties;
+import windows.UIWindow;
 
 public class UIMaster {
 	public static List<UIElement> uies = Rendering.uies;
 	
-	public List<UIElement> mProp;
+	public static UIWindow mProp;
 	
 	public static UIState uiState = UIState.NORMAL;
 	public static String testText = new String();
 	private static List<String> words = new ArrayList<String>();
-	static List<List<UIElement>> activeWindows = new ArrayList<List<UIElement>>();
+	public static List<UIWindow> activeWindows = new ArrayList<UIWindow>();
+	public static Map<String, List<UIElement>> windows = new HashMap<String, List<UIElement>>();
 	
 	public static UIElement activeText;
 	
-	public void init() {
+	public static void init() {
 		mProp = MaterialProperties.createWindow();
-		
 		
 	}
 	
-	public void updateUI() {
-		if(uiState == UIState.NORMAL) {
-			
-			while(Keyboard.next()) {
-				if(Keyboard.getEventKeyState()) {
-					if(Keyboard.getEventKey() == Keyboard.KEY_G) {
-						
-					}
-					if(Keyboard.getEventKey() == Keyboard.KEY_E) {
-						System.out.println("TEST");
-						
-					}
-				} else {
-					if(Keyboard.getEventKey() == Keyboard.KEY_G) {
-						System.out.println("TEST");						if(!mProp.get(1).isActive()) {
-							Rendering.uihandler.openWindow(mProp);
-							return;
-							}
-						if(mProp.get(1).isActive()) {
-							Rendering.uihandler.closeWindow(mProp);
-							
-							
-						}
-					}
-				}
-			}
-		} else if(uiState == UIState.TEXT_INPUT) {
-			getTextInput();
-		}
+	public static void updateUI() {
+		
 		
 		if(activeWindows.size() > 0) {
-			for(UIElement uie: activeWindows.get(activeWindows.size() - 1)) {
-				if(uie.isActive()) {
-					uie.checkMouse();
+			for(UIWindow uiw: activeWindows) {
+				if(uiw.isActive()) {
+					UIHandler.closeWindow(uiw);
+					UIHandler.openWindow(uiw);
+					for(UIElement uie: uiw.getWindow()) {
+						uie.checkMouse();
+					}
 				}
 			}		
 		}
@@ -109,7 +89,7 @@ public class UIMaster {
 
 	}
 	public void clearUpdatedText() {
-		for(GUIText text : mProp.get(1).getSliders().get(0)[2].getTexts()) {
+		for(GUIText text : mProp.getWindow().get(1).getSliders().get(0)[2].getTexts()) {
 			Rendering.textmaster.removeText(text);
 		}
 	}

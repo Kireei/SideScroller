@@ -19,9 +19,7 @@ public class GameStateNormal extends GameState{
 			if(Keyboard.getEventKeyState()) {
 				switch(Keyboard.getEventKey()) {
 				case Keyboard.KEY_G:
-					Rendering.uihandler.openWindow(Rendering.uimaster.mProp);
-					//if(!Rendering.uimaster.mProp.get(1).isActive())Rendering.uihandler.openWindow(Rendering.uimaster.mProp);
-					//if(Rendering.uimaster.mProp.get(1).isActive())Rendering.uihandler.closeWindow(Rendering.uimaster.mProp);
+					Rendering.uihandler.toggleWindow(UIMaster.mProp);
 					break;
 				case Keyboard.KEY_ESCAPE:
 					System.exit(0);

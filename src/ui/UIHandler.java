@@ -15,6 +15,7 @@ import main.Rendering;
 import models.ModelTexture;
 import models.RawModel;
 import models.TexturedModel;
+import windows.UIWindow;
 
 public class UIHandler {
 	public static Loader loader = Rendering.loader;
@@ -62,8 +63,6 @@ public class UIHandler {
 		float tileSize = 0.06f;
 		float tileSpaceX = tileSize*18f/16f;
 		float tileSpaceY = tileSize*2;
-		 
-		
 		
 		List<UIElement> window = new ArrayList<UIElement>();
 		UIElement TLCorner = new UIElement(new Vector3f(position.x, -position.y,0), new Vector3f(0,0,0), new Vector2f(tileSize, tileSize), new ModelTexture(loader.loadTexture("GUI/Corner 1")));
@@ -87,72 +86,86 @@ public class UIHandler {
 		return window;
 	}
 	
-	public void openWindow(List<UIElement> window) {
-		window.get(1).setActive(true);
-		
-		for(int i = 0; i < window.size(); i++) {
-			Rendering.uies.add(window.get(i));
+	public static void openWindow(UIWindow window) {
+		//window.setActive(true);
+		List<UIElement> elements = window.getWindow();
+		for(int i = 0; i < elements.size(); i++) {
+			Rendering.uies.add(elements.get(i));
 			
-			for(UIElement[] slider: window.get(i).getSliders()) {
+			for(UIElement[] slider: elements.get(i).getSliders()) {
 				Rendering.uies.add(slider[0]);
 				Rendering.uies.add(slider[1]);
 				Rendering.uies.add(slider[2]);
 				Rendering.uies.add(slider[3]);
 				for(int j = 0; j < 4; j++) {
 					for(GUIText text: slider[j].getTexts()) {
-						//TextMaster.loadText(text);
+						Rendering.textmaster.loadText(text);
 					}
 				}
 			}
 			
 			
-			for(UIElement rb: window.get(i).getRadioButtons()) {
+			for(UIElement rb: elements.get(i).getRadioButtons()) {
 				Rendering.uies.add(rb);
 				for(GUIText text: rb.getTexts()) {
 					Rendering.textmaster.loadText(text);
 				}
 				
 			}
-			for(GUIText text: window.get(i).getTexts()) {
+			for(GUIText text: elements.get(i).getTexts()) {
 				Rendering.textmaster.loadText(text);
+				//System.out.println(text + " loaded");
 			}
 			
 		}
-		UIMaster.activeWindows.add(window);
+		//UIMaster.activeWindows.add(window);
 	}
 	
-	public void closeWindow(List<UIElement> window) {
-		for(int i = 0; i < window.size(); i++) {
-			for(UIElement rb: window.get(i).getRadioButtons()) {
+	public static void closeWindow(UIWindow window) {
+		List<UIElement> elements = window.getWindow();
+		
+		for(int i = 0; i < elements.size(); i++) {
+			for(UIElement rb: elements.get(i).getRadioButtons()) {
 				Rendering.uies.remove(rb);
 				for(GUIText text: rb.getTexts()) {
+					if(text == null || rb.getTexts().size() == 0) continue;
 					Rendering.textmaster.removeText(text);
 					
 				}
 			}
-			for(UIElement[] slider: window.get(i).getSliders()) {
+			for(UIElement[] slider: elements.get(i).getSliders()) {
 				Rendering.uies.remove(slider[0]);
 				Rendering.uies.remove(slider[1]);
 				Rendering.uies.remove(slider[2]);
 				Rendering.uies.remove(slider[3]);
 				for(int j = 0; j < 4; j++) {
 					for(GUIText text: slider[j].getTexts()) {
-						
+						if(text == null || slider[j].getTexts().size() == 0) continue;
 						Rendering.textmaster.removeText(text);
 					}
 				}
 			}
-			for(GUIText text: window.get(i).getTexts()) {
+			for(GUIText text: elements.get(i).getTexts()) {
+				if(!elements.get(i).getTexts().contains(text) || text == null || elements.get(i).getTexts().size() == 0) continue;
+				//System.out.println(elements.get(i).getTexts().size());
 				try{
 					Rendering.textmaster.removeText(text);
 				}catch (Exception e){
-					System.err.println(e);
+					System.err.println(e + " At UIE" + i);
+					e.printStackTrace();
+					e.getCause();
 				}
 			}
-			Rendering.uies.remove(window.get(i));
-			window.get(1).setActive(false);
-			UIMaster.activeWindows.remove(window);
+			Rendering.uies.remove(elements.get(i));
+			//window.setActive(false);
+			//UIMaster.activeWindows.remove(window);
 		}
+	}
+	
+	public void toggleWindow(UIWindow window) {
+		System.out.println("Window:" + window.getId() + " " + window.isActive());
+		if(!window.isActive()) {window.setActive(true); return;}
+		if(window.isActive()) {window.setActive(false); return;}
 	}
 	
 	

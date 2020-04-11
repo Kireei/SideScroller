@@ -1,7 +1,9 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
@@ -35,6 +37,7 @@ public class Rendering extends Thread{
 	
 	public static List<UIElement> uies = new ArrayList<UIElement>();
 	
+	
 	public Rendering() {
 		
 		loader = new Loader();
@@ -50,7 +53,7 @@ public class Rendering extends Thread{
 			
 			renderer.processEntity(newdragon);
 			renderer.render(light, camera);
-			uimaster.updateUI();
+			UIMaster.updateUI();
 			textmaster.render();
 			DisplayManager.updateDisplay();
 			
@@ -80,12 +83,18 @@ public class Rendering extends Thread{
 		TexturedModel Dragon = new TexturedModel(dragon, new ModelTexture(loader.loadTexture("chimp")));
 		newdragon = new Entity(Dragon, new Vector3f(0,-3,-15),0,0,0, new Vector3f(1,1,1));
 		uihandler = new UIHandler();
-		uimaster = new UIMaster();
+		//uimaster = new UIMaster();
 		textmaster = new TextMaster();
 		textmaster.init();
 		uihandler.init();
-		uimaster.init();
-		//UIHandler.openWindow(MaterialProperties.createWindow());
+		UIMaster.init();
+		//UIHandler.openWindow(UIMaster.mProp);
 		Settings.initialization = true;
 	}
+
+	public static Loader getLoader() {
+		return loader;
+	}
+	
+	
 }

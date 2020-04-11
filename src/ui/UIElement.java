@@ -52,7 +52,7 @@ public class UIElement {
 	}
 	
 	public void checkMouse() {
-		if(active) {
+		if(active || !active) {
 			double mX = (Mouse.getX() / (double)(Display.getWidth()) * 2 - 1);
 			double mY = (Mouse.getY() / (double)(Display.getHeight()) * 2 - 1);
 
